@@ -1,12 +1,17 @@
 <template>
-  <div v-if="tasks.$readyAll">
+  <div v-if="tasks.$readyAll" class="todo-list">
     <ul>
       <li v-for="task in tasks.itemsAsArray()" :key="task.$key">
         <a href="#" @click.prevent="checkTask( task )" style="text-decoration: none">
-          {{ task.isDone ? '✅' : '⏹️' }}
+          <i :class="['icon',
+            task.isDone
+              ? 'ion-md-checkbox-outline'
+              : 'ion-md-square-outline']" />
         </a>
         {{task.title}}
-        <a href="#" @click.prevent="deleteItem( task )">del</a>
+        <a href="#" @click.prevent="deleteItem( task )">
+          <i class="icon ion-md-trash" />
+        </a>
       </li>
     </ul>
     <input v-model="title" @keyup.enter="addItem" />
@@ -52,3 +57,44 @@ export default {
   }
 }
 </script>
+
+<style>
+.todo-list {
+  margin: 0 2em;
+  padding: 2em;
+  border: 2px solid grey;
+}
+
+.todo-list .icon {
+  color: black;
+}
+
+.todo-list .icon.ion-md-trash {
+  color: #cc5050;
+}
+
+.todo-list ul {
+  padding: 0;
+}
+
+.todo-list li {
+  list-style: none;
+  font-size: 20pt;
+  padding: 0 0.5em;
+}
+
+.todo-list button,
+.todo-list input {
+  margin-right: 0.5em;
+  font-size: 20pt;
+  border: 2px solid black;
+}
+
+.todo-list input:focus {
+  outline: none;
+}
+
+.todo-list li:hover {
+  background: #eee;
+}
+</style>
