@@ -1,0 +1,24 @@
+{
+  "rules": {
+    "tasks": {
+      "$key1": {
+        ".validate": "newData.hasChildren(['title'])",
+        "title": {
+          ".validate": "newData.isString()"
+        },
+        "createdAt": {
+          ".validate": "newData.isNumber()"
+        },
+        "isDone": {
+          ".validate": "newData.isBoolean()"
+        },
+        "$other": {
+          ".validate": "false"
+        }
+      },
+      ".validate": "newData.hasChildren()",
+      ".read": "true",
+      ".write": "true"
+    }
+  }
+}
