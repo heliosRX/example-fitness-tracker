@@ -2,7 +2,7 @@
 
 ## Demo
 
-- (https://heliosrx-example-tracker.web.app/)[https://heliosrx-example-tracker.web.app/]
+- [https://heliosrx-example-tracker.web.app/](https://heliosrx-example-tracker.web.app/)
 
 ## Project setup
 ```
