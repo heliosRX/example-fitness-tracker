@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "core-js": "^3.4.4",
+    "firebase": "^7.6.1",
+    "heliosrx": "https://github.com/tw00/heliosrx-private.git",
     "vue": "^2.6.10",
     "vue-router": "^3.1.3",
     "vuex": "^3.1.2"
