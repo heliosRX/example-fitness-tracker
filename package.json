@@ -5,7 +5,11 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "rules": "npm run rules:make && npm run rules:compile && npm run rules:deploy",
+    "rules:compile": "firebase-bolt database.rules.bolt",
+    "rules:deploy": "firebase deploy --only database",
+    "rules:make": "helios rules --write database.rules.bolt"
   },
   "dependencies": {
     "core-js": "^3.4.4",
