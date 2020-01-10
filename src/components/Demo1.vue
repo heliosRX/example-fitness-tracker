@@ -1,6 +1,6 @@
 <template>
-  <div v-if="tasks.$readyAll" class="todo-list">
-    <ul>
+  <div class="todo-list">
+    <ul v-if="tasks.$readyAll">
       <li v-for="task in tasks.itemsAsArray()" :key="task.$key">
         <a href="#" @click.prevent="checkTask( task )" style="text-decoration: none">
           <i :class="['icon',
@@ -14,11 +14,12 @@
         </a>
       </li>
     </ul>
+    <div v-else class="loading">
+      Loading...
+      <i class="icon ion-md-refresh ion-spin" />
+    </div>
     <input v-model="title" @keyup.enter="addItem" />
     <button @click="addItem">Add Item</button>
-  </div>
-  <div v-else>
-    Loading...
   </div>
 </template>
 
@@ -96,5 +97,23 @@ export default {
 
 .todo-list li:hover {
   background: #eee;
+}
+
+.todo-list .loading {
+  text-align: center;
+  font-size: 20pt;
+  min-height: 140px;
+  margin-top: 100px;
+}
+
+.ion-spin {
+  font-size: 20pt;
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(359deg); }
 }
 </style>
