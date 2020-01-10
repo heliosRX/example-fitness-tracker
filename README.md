@@ -1,4 +1,4 @@
-# heliosrx-example-fitness-tracker2
+# heliosRX example project: Fitness Tracker
 
 ## Project setup
 ```
