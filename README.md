@@ -1,8 +1,20 @@
 # heliosRX example project: Fitness Tracker
 
+## Demo
+
+- (https://heliosrx-example-tracker.web.app/)[https://heliosrx-example-tracker.web.app/]
+
 ## Project setup
 ```
 yarn install
+npm instal -g firebase-bolt
+```
+
+### Install & login to firebase
+
+```
+npm install -g firebase-tools
+firebase login
 ```
 
 ### Compiles and hot-reloads for development
@@ -18,6 +30,22 @@ yarn build
 ### Lints and fixes files
 ```
 yarn lint
+```
+
+### Generate rules
+```
+yarn rules
+
+# or
+
+helios rules --write database.rules.bolt
+firebase-bolt database.rules.bolt
+firebase deploy --only database
+```
+
+### Deploy
+```
+firebase deploy
 ```
 
 ### Customize configuration
