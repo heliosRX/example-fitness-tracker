@@ -4,6 +4,8 @@
 
 - [https://heliosrx-example-tracker.web.app/](https://heliosrx-example-tracker.web.app/)
 
+![Example](./img/example.png)
+
 ## Project setup
 ```
 yarn install
