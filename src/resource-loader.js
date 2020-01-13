@@ -6,7 +6,7 @@ import $models from "@/models"
 // import { GenericStore, resetGenericStores } from 'heliosrx'
 import { resetGenericStores, GenericStore } from 'heliosrx'
 import { rem_ready, set_ready } from '@/api/ready'
-import { get_registry } from '@/api/misc'
+import { registry } from 'heliosrx'
 // import { UserFeatureStore } from '@/features.js';
 
 const DEFAULT_ROUTER_AFTER_LOGIN = '/';
@@ -97,7 +97,7 @@ const ResourceLoader = {
     log1("afterUserSignIn => login", user.uid);
 
     /* Set registry to ready */
-    get_registry().commit('INIT_REGISTRY');
+    registry.commit('INIT_REGISTRY');
 
     // We don't know yet if the user exists in the database,
     // so we have to attach the user to check
@@ -133,7 +133,7 @@ const ResourceLoader = {
     resetGenericStores();
 
     /* Reset registry */
-    get_registry().commit('RESET_REGISTRY');
+    registry.commit('RESET_REGISTRY');
 
     // TODO: if we do this we dont need watcher
     // this.dettachAllTasklists();
@@ -417,8 +417,8 @@ const ResourceLoader = {
     // log2("attaching tasklist", tasklist_id);
     //
     // // let tasklist_list_state = store.getters['tasklist/tasklist_list_state']; // TODO
-    // let tasklist_list_state = get_registry_state().res.tasklist || {}
-    // // TODO: maybe better: get_registry_state().sync[ '/tasklist/' + tasklistId + '/meta' ]
+    // let tasklist_list_state = registry.$state.res.tasklist || {}
+    // // TODO: maybe better: registry.$state.sync[ '/tasklist/' + tasklistId + '/meta' ]
     //
     // if ( tasklist_list_state[tasklist_id] ) {
     //   // TODO X1: This does not work, when user leaves tasklist and then joins again

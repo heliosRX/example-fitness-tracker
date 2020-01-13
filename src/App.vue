@@ -8,6 +8,8 @@
 import defaultLayout from '@/layout/default'
 import emptyLayout from '@/layout/empty'
 import resourceLoader from '@/resource-loader'
+import { registry as $registry } from 'heliosrx'
+import { auth_logout } from '@/api/auth'
 
 export default {
   name: "App",
@@ -83,7 +85,7 @@ export default {
           || newUserReadonlyStatus === 'inactive' ) {
           /* User was deleted on server side */
           // console.log("[load] **** BOOM - USER TERMINATED ****")
-          this.$api.auth_logout().then(() => {
+          auth_logout().then(() => {
             this.$router.push('/login')
           })
         }
@@ -107,7 +109,7 @@ export default {
 
     resourcesReady() {
       // DEBUG ! MOVE TO READY API
-      return Object.keys(this.$api.get_registry().state.ready);
+      return Object.keys($registry.state.ready);
     },
   }
 }
