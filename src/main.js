@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-import router from './router'
-
 import heliosRX from 'heliosrx'
 import { rtdb } from './firebase' // Import realtime database
 import models from "@/models"
@@ -11,11 +9,20 @@ import models from "@/models"
 import "milligram"
 import './styles/helios-simple.scss';
 
+/* -------------------- Global CSS imports ---------------------------------- */
 Vue.use(heliosRX, {
   models:  models,
   db:      rtdb,
   devMode: true,
 })
+
+/* ------------------------ Import Resource Loader -------------------------- */
+let loader = require("@/resource-loader.js").default;
+loader.beforeAppStartsLoading();
+
+// import router from './router'
+let router = require("@/router").default;
+loader.connectRouter( router )
 
 /* ---------------------------- Vue Config ---------------------------------- */
 Vue.config.productionTip = false
