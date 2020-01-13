@@ -1,4 +1,15 @@
 const path = require('path')
+/*
+const webpack = require("webpack");
+
+if ( process.env.NODE_ENV !== 'test' ) {
+  const config = require("./config/env.js");
+  config.configureClientEnvironment();
+} else {
+  console.log("Test ENV - skipping firebase config");
+}
+*/
+
 // Helpers
 /* eslint-disable no-unused-vars */
 const isBuild       = process.env.NODE_ENV === 'production';
@@ -32,6 +43,9 @@ module.exports = {
     },
   },
   configureWebpack: {
+    // devtool: 'source-map',
+    // devtool: 'cheap-eval-source-map',
+    // devtool: 'eval-source-map',
     devtool: isBuild ? false : 'cheap-module-eval-source-map',
     optimization: {
       minimize: isBuild,
@@ -40,6 +54,11 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
+        // prependData: `
+        // $env: ${process.env.NODE_ENV};
+        // @import '@/styles/settings/_settings.colors.scss';
+        // @import '@/styles/settings/_tools.scss';
+        // `,
       }
     }
   },

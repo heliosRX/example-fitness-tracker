@@ -1,16 +1,27 @@
 <template>
-  <div class="home">
-    <Demo1 />
+  <div class="home-view">
+		<h1 class="text-center">Welcome to the Challenge App</h1>
+		<p class="text-center">Hello World :)</p>
   </div>
 </template>
 
 <script>
-import Demo1 from '@/components/Demo1.vue'
 
 export default {
   name: 'home',
+  data() {
+    return {
+    }
+  },
+  mounted() {
+  },
   components: {
-    Demo1
   }
 }
 </script>
+
+<style>
+.home-view {
+	padding-top: 16rem;
+}
+</style>
