@@ -1,15 +1,35 @@
 import GenericStore from 'heliosrx/src/store'
 import taskModelDefinition from './task';
 
-export const task = new GenericStore(
-  '/tasks/*',
-  taskModelDefinition
+import logModelDefinition from './log';
+import groupModelDefinition from './group';
+import groupMemberModelDefinition from './group-member';
+import userModelDefinition from './user';
+
+export const group = new heliosrx.GenericStore(
+  '/groups/*',
+  groupModelDefinition
+);
+
+export const groupMember = new heliosrx.GenericStore(
+  '/groups/{groupId}/members/*',
+  groupMemberModelDefinition
+);
+
+export const log = new heliosrx.GenericStore(
+  '/groups/{groupId}/logs/*',
+  logModelDefinition
+);
+
+export const user = new heliosrx.GenericStore(
+  '/users/*',
+  userModelDefinition,
+  { uidMethod: UIDMethod.MY_USER_ID }
 );
 
 /*
 PWA
 subsribe -> /group/{groupId}
-
 
 /group/{groupId}/member/{userId}/tracking/{entryId} is TrackingItem {
   userId: X,
