@@ -1,5 +1,26 @@
 // file: db/rules/rules.bolt
-path /tasks is Task[] {
+
+path /groups {
+  read() { true }
+  write() { true }
+}
+
+path /groups/{groupId} is Group {
+  read() { true }
+  write() { true }
+}
+
+path /groups/{groupId}/members/{memberId} is GroupMember {
+  read() { true }
+  write() { true }
+}
+
+path /groups/{groupId}/logs/{logId} is Log {
+  read() { true }
+  write() { true }
+}
+
+path /users/{userId} is User {
   read() { true }
   write() { true }
 }

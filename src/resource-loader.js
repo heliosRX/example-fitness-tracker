@@ -318,6 +318,28 @@ const ResourceLoader = {
     GenericStore.defaultUserId = authUserId;
     set_ready('auth')
     log1("set ready -> auth = true")
+
+    /*
+    let userSettings = $models.userSettings.subscribeNode(authUserId)
+    let userReadonly = $models.userReadonly.subscribeNode(authUserId)
+    $models.userPublic.subscribeNode(authUserId)
+    $models.userContact.subscribeList()
+
+    this.attachContacts( authUserId )
+
+    userSettings.$promise.then(() => {
+      this.userSettingsReady( userSettings );
+    })
+
+    userReadonly.$promise.then(() => {
+      this.userReadonlyReady( userReadonly );
+    })
+
+    Promise.all([ userSettings.$promise, userReadonly.$promise ]).then(() => {
+      set_ready('user') // TODO: Check if registry is ready
+      // store.commit('user/SET_INITIALIZED', null, { root: true }) // TODO: only used here
+    })
+    */
   },
 
   // ---------------------------------------------------------------------------
@@ -325,6 +347,12 @@ const ResourceLoader = {
    * This is called as soon as the user settings are ready
    */
   userSettingsReady( /* userSettings */ ) {
+    //
+    // let initialized = store.getters['user/initialized'] // TODO: only used here
+    // let loggedIn = store.getters['user/loggedIn']
+    //
+    // if (!initialized && loggedIn) {
+    // }
   },
 
   // ---------------------------------------------------------------------------
@@ -332,10 +360,31 @@ const ResourceLoader = {
    * This is called as soon as the user settings are ready
    */
   userReadonlyReady( /* userReadonly */ ) {
+    //
+    // log1("userReadonlyReady", userReadonly)
+    //
+    // // let initialized = store.getters['user/initialized'] // TODO: only used here
+    // // let loggedIn = store.getters['user/loggedIn']
+    //
+    // if ( !userReadonly.status ) {
+    //   // Ah-oh, race condition - we started loading the user readonly before it exists
+    //   // Should be fine, since we check for != active
+    // }
+    //
+    // if ( userReadonly.status !== 'active' ) {
+    //   log1("User status is not active -> doing nothing")
+    //   set_ready('tasklists') // HACK! Otherwise loading screen
+    //
+    //   return router.push('/wait')
+    // }
+    //
+    // if ( userReadonly ) {
+    // }
   },
 
   // ---------------------------------------------------------------------------
   attachContacts( /* authUserId */ ) {
+    // $models.userStatus.subscribeNode(authUserId)
   },
 
   // ---------------------------------------------------------------------------
@@ -347,6 +396,17 @@ const ResourceLoader = {
    * Attaches a list of tasklists
    */
   attachTasklistList( /* tasklist_id_list, is_multi_tasklist_attach */ ) {
+    // log2('attaching tasklist list', tasklist_id_list, is_multi_tasklist_attach);
+    //
+    //
+    // tasklist_id_list.forEach(tasklist_id => {
+    //   const promises = this.attachTasklist( tasklist_id, is_multi_tasklist_attach );
+    //   if ( promises ) {
+    //   }
+    // });
+    //
+    // return {
+    // }
   },
 
   // ---------------------------------------------------------------------------
@@ -354,6 +414,54 @@ const ResourceLoader = {
    * Attaches one tasklist
    */
   attachTasklist( /* tasklist_id, is_multi_tasklist_attach */ ) {
+    // log2("attaching tasklist", tasklist_id);
+    //
+    // // let tasklist_list_state = store.getters['tasklist/tasklist_list_state']; // TODO
+    // let tasklist_list_state = get_registry_state().res.tasklist || {}
+    // // TODO: maybe better: get_registry_state().sync[ '/tasklist/' + tasklistId + '/meta' ]
+    //
+    // if ( tasklist_list_state[tasklist_id] ) {
+    //   // TODO X1: This does not work, when user leaves tasklist and then joins again
+    //   if ( is_multi_tasklist_attach ) {
+    //     log2(`Tasklist with tasklist_id ${tasklist_id} is already attached`);
+    //   }
+    //   return {
+    //     promiseTasklistMeta: Promise.resolve(),
+    //   };
+    // }
+    //
+    // let p1 = $models.tasklistMeta.subscribeNode( tasklist_id ).$promise
+    //
+    // p1.then(() => {
+    //   log2("Got Tasklist Meta for", tasklist_id)
+    // }).catch((err) => {
+    //   if ( err.code === 'PERMISSION_DENIED' ) {
+    //     console.warn("No access to tasklist", tasklist_id, "-> dettaching and deleting from state")
+    //     this.dettachTasklist( tasklist_id, {
+    //       delete_state: true,
+    //       remove_settings: true
+    //     });
+    //   }
+    //   return null;
+    // })
+    //
+    // // return Promise.all([p1, p2, p3, p4, p5, p6, p7])
+    // Promise.all([ p1, p2 ]).then(() => {
+    //   log2("ready tasklist:", tasklist_id);
+    //   set_ready( 'tasklist:' + tasklist_id );
+    // }).catch(() => {
+    //   // Will be handlere in userReadonlyReady, just remove ready flag
+    //   rem_ready( 'tasklist:' + tasklist_id )
+    // })
+    //
+    // /* Set ready to false, but indicated that it's loading */
+    // set_ready( 'tasklist:' + tasklist_id, false );
+    //
+    // // TODO: This would be a good time to fix the cachedName if tasklistMeta.name is
+    // // not the same as userTasklistSettings.cachedName
+    // return {
+    //   promiseTasklistMeta: p1,
+    // }
   },
 
   // ---------------------------------------------------------------------------
@@ -361,6 +469,14 @@ const ResourceLoader = {
    * Dettaches alls tasklists
    */
   dettachAllTasklists() {
+    //
+    // let tasklist_list_with_ids = [] // TODO
+    //
+    // if ( tasklist_list_with_ids ) {
+    //   tasklist_list_with_ids.forEach((id) => {
+    //     this.dettachTasklist(id)
+    //   })
+    // }
   },
 
   // ---------------------------------------------------------------------------
@@ -368,6 +484,26 @@ const ResourceLoader = {
    * Dettaches one tasklist
    */
   dettachTasklist( /* tasklist_id, { delete_state = true, remove_settings = false } = {} */ ) {
+    // log2("Detaching tasklist", tasklist_id);
+    //
+    // // TODO: Check what happens at logout, what clean up is needed here?
+    //
+    // // TODO: redirect
+    // if ( router.currentRoute.path.includes( tasklist_id ) ) {
+    //   log1("Currently on a route with tasklist id -> redirect")
+    //   router.push('/tasklists') // TODO
+    // }
+    //
+    // $models.tasklistMeta.unsync( tasklist_id, { clean_up: delete_state } )
+    //
+    // // TODO: Also unsync everything else under /tasklists/id/*
+    //
+    // if ( remove_settings ) {
+    //   $models.userTasklistSettings.unsync( tasklist_id, { clean_up: delete_state } )
+    // }
+    //
+    // /* Remove ready flag entirly */
+    // rem_ready( 'tasklist:' + tasklist_id );
   }
 }
 

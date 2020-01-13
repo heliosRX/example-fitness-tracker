@@ -100,12 +100,38 @@ function emailVerified() { auth.token.email_verified === true }
 
 
 
-// SOURCE: ../../src/models//task/schema.bolt
+// SOURCE: ../../src/models//group/schema.bolt
 
-type Task {
+type Group {
 	title: String
+	unit: String | Null
+	matchRegex: String | Null
 	createdAt: ServerTimestamp | Null
-	isDone: Boolean | Null
+	description: String | Null
+}
+
+
+// SOURCE: ../../src/models//groupMember/schema.bolt
+
+type GroupMember {
+	role: String | Null
+}
+
+
+// SOURCE: ../../src/models//log/schema.bolt
+
+type Log {
+	createdAt: ServerTimestamp | Null
+	userId: UserID | Null
+	value: Number | Null
+}
+
+
+// SOURCE: ../../src/models//user/schema.bolt
+
+type User {
+	username: String
+	createdAt: ServerTimestamp | Null
 }
 
 
@@ -113,7 +139,28 @@ type Task {
 
 // SOURCE: /Users/twe/Projects/heliosrx-example-fitness-tracker/rules/rules.bolt
 // file: db/rules/rules.bolt
-path /tasks is Task[] {
+
+path /groups {
+  read() { true }
+  write() { true }
+}
+
+path /groups/{groupId} is Group {
+  read() { true }
+  write() { true }
+}
+
+path /groups/{groupId}/members/{memberId} is GroupMember {
+  read() { true }
+  write() { true }
+}
+
+path /groups/{groupId}/logs/{logId} is Log {
+  read() { true }
+  write() { true }
+}
+
+path /users/{userId} is User {
   read() { true }
   write() { true }
 }

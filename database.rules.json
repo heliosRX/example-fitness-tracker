@@ -1,24 +1,79 @@
 {
   "rules": {
-    "tasks": {
-      "$key1": {
+    "groups": {
+      ".read": "true",
+      ".write": "true",
+      "$groupId": {
         ".validate": "newData.hasChildren(['title'])",
         "title": {
+          ".validate": "newData.isString()"
+        },
+        "unit": {
+          ".validate": "newData.isString()"
+        },
+        "matchRegex": {
           ".validate": "newData.isString()"
         },
         "createdAt": {
           ".validate": "newData.isNumber()"
         },
-        "isDone": {
-          ".validate": "newData.isBoolean()"
+        "description": {
+          ".validate": "newData.isString()"
         },
         "$other": {
           ".validate": "false"
+        },
+        ".read": "true",
+        ".write": "true",
+        "members": {
+          "$memberId": {
+            ".validate": "newData.hasChildren()",
+            "role": {
+              ".validate": "newData.isString()"
+            },
+            "$other": {
+              ".validate": "false"
+            },
+            ".read": "true",
+            ".write": "true"
+          }
+        },
+        "logs": {
+          "$logId": {
+            ".validate": "newData.hasChildren()",
+            "createdAt": {
+              ".validate": "newData.isNumber()"
+            },
+            "userId": {
+              ".validate": "((newData.isString() && newData.val().length >= 28) && newData.val().length <= 128)"
+            },
+            "value": {
+              ".validate": "newData.isNumber()"
+            },
+            "$other": {
+              ".validate": "false"
+            },
+            ".read": "true",
+            ".write": "true"
+          }
         }
-      },
-      ".validate": "newData.hasChildren()",
-      ".read": "true",
-      ".write": "true"
+      }
+    },
+    "users": {
+      "$userId": {
+        ".validate": "newData.hasChildren(['username'])",
+        "username": {
+          ".validate": "newData.isString()"
+        },
+        "createdAt": {
+          ".validate": "newData.isNumber()"
+        },
+        "$other": {
+          ".validate": "false"
+        },
+        ".read": "true",
+        ".write": "true"
+      }
     }
   }
 }
