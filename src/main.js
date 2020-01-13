@@ -4,6 +4,7 @@ import App from './App.vue'
 import heliosRX from 'heliosrx'
 import { rtdb } from './firebase' // Import realtime database
 import models from "@/models"
+import '@/user-management'
 
 /* -------------------- Global CSS imports ---------------------------------- */
 import "milligram"

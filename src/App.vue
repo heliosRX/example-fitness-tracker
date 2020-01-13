@@ -15,6 +15,12 @@ export default {
     defaultLayout,
 		emptyLayout,
   },
+  beforeCreate() {
+    resourceLoader.afterAppStartsLoading();
+  },
+  mounted() {
+    resourceLoader.afterAppMounted()
+  },
   watch: {
     '$ready_auth' (ready) {
       if ( ready ) {
@@ -88,6 +94,16 @@ export default {
 		layout() {
 			return ( this.$route.meta.layout || 'default' ) + '-layout';
 		},
+
+    userReadonly() {
+      if ( !this.loggedIn ) {
+        return { status: null }
+      }
+      if ( this.defaultUserId && this.$ready_user ) {
+        return this.$models.userReadonly.subscribeNode( this.defaultUserId )
+      }
+      return { status: 'loading' }
+    },
 
     resourcesReady() {
       // DEBUG ! MOVE TO READY API
