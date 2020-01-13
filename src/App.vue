@@ -1,13 +1,29 @@
 <template>
   <div id="app">
-    <h1 style="text-align: center">To-Do App</h1>
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+		<component :is="layout" />
   </div>
 </template>
+
+<script>
+import defaultLayout from '@/layout/default'
+import emptyLayout from '@/layout/empty'
+import resourceLoader from '@/resource-loader'
+
+export default {
+  name: "App",
+  components: {
+    defaultLayout,
+		emptyLayout,
+  },
+  watch: {
+  },
+  computed: {
+		layout() {
+			return ( this.$route.meta.layout || 'default' ) + '-layout';
+		},
+  }
+}
+</script>
 
 <style>
 #app {
