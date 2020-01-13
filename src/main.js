@@ -7,7 +7,9 @@ import heliosRX from 'heliosrx'
 import { rtdb } from './firebase' // Import realtime database
 import models from "@/models"
 
-Vue.config.productionTip = false
+/* -------------------- Global CSS imports ---------------------------------- */
+import "milligram"
+import './styles/helios-simple.scss';
 
 Vue.use(heliosRX, {
   models:  models,
@@ -15,7 +17,12 @@ Vue.use(heliosRX, {
   devMode: true,
 })
 
-new Vue({
+/* ---------------------------- Vue Config ---------------------------------- */
+Vue.config.productionTip = false
+
+export default new Vue({
+  // db: db,
+  // store: store,
   router,
   render: h => h(App)
 }).$mount('#app')
