@@ -1,5 +1,5 @@
-import heliosrx from 'heliosrx'
-import { UIDMethod } from 'heliosrx/src/store/GenericStore.js' // TODO
+import heliosrx, { UIDMethod } from 'heliosrx'
+// import { UIDMethod } from 'heliosrx/src/store/GenericStore.js' // TODO
 
 import logModelDefinition from './log';
 import groupModelDefinition from './group';

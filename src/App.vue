@@ -8,7 +8,7 @@
 import defaultLayout from '@/layout/default'
 import emptyLayout from '@/layout/empty'
 import resourceLoader from '@/resource-loader'
-import { registry as $registry } from 'heliosrx'
+import { getRegistry } from 'heliosrx'
 import { auth_logout } from '@/api/auth'
 
 export default {
@@ -109,7 +109,7 @@ export default {
 
     resourcesReady() {
       // DEBUG ! MOVE TO READY API
-      return Object.keys($registry.state.ready);
+      return Object.keys(getRegistry().state.ready);
     },
   }
 }

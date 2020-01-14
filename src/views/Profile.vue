@@ -12,7 +12,7 @@
 
 <script>
 // import { registry } from 'heliosrx'
-import { registry } from "heliosrx"
+import { getRegistry } from "heliosrx"
 import { auth_current_user } from '@/api/auth'
 // import { auth_current_user, auth_user_is_logged_in } from '@/api'
 
@@ -36,7 +36,7 @@ export default {
       return null;
     },
     foobar() {
-      return registry.state.ready;
+      return getRegistry().state.ready;
     },
     userPromise() {
       return auth_current_user();
