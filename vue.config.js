@@ -50,6 +50,7 @@ module.exports = {
     optimization: {
       minimize: isBuild,
     },
+    resolve: { symlinks: false },
   },
   css: {
     loaderOptions: {
