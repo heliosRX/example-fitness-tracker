@@ -63,6 +63,7 @@ export default {
         userId: this.$models.user.defaultUserId,
         value: parseFloat( this.value )
       });
+      this.value = "";
     },
     deleteItem( log ) {
       // log.remove();

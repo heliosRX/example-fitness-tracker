@@ -17,6 +17,10 @@ Vue.use(heliosRX, {
   devMode: true,
 })
 
+if ( process.browser ) {
+  window.$heliosRX = heliosRX;
+}
+
 /* ------------------------ Import Resource Loader -------------------------- */
 let loader = require("@/resource-loader.js").default;
 loader.beforeAppStartsLoading();

@@ -25,7 +25,7 @@
               </li>
 							-->
 							<li class="Navigation__item">
-                <router-link class="Link" to="/about">About</router-link>
+                <router-link class="Link" to="/about">How it works</router-link>
               </li>
             </ul>
           </nav>
@@ -108,7 +108,7 @@ export default {
   justify-content: flex-end;
   margin: 0;
   position: relative;
-  width: 8rem;
+  width: 12rem;
 }
 .Sidebar {
   width: 225px;

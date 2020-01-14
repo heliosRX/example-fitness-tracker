@@ -48,3 +48,13 @@ pre {
 .text-center {
 	text-align: center;
 }
+
+input, select, textarea {
+  font-size: 150%;
+  border-width: 2px !important;
+  min-height: 6rem;
+}
+
+textarea {
+  min-height: 12rem;
+}
