@@ -5,6 +5,7 @@ import heliosRX from 'heliosrx'
 import { rtdb } from './firebase' // Import realtime database
 import models from "@/models"
 import '@/user-management'
+// import store from '@/store'
 
 /* -------------------- Global CSS imports ---------------------------------- */
 import "milligram"
@@ -15,6 +16,7 @@ Vue.use(heliosRX, {
   models:  models,
   db:      rtdb,
   devMode: true,
+  // useExistingStore: store,
 })
 
 if ( process.browser ) {
