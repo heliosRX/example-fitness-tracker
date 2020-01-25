@@ -1,9 +1,9 @@
 import { moment } from 'heliosrx'
 
 export default {
-  create({ userId, value }) {
+  create({ userId, value }, { date = null }) {
     return {
-      createdAt: moment.currentTimeServer('REALTIMEDB'),
+      date:      date || moment.currentTimeServer('REALTIMEDB'),
       value:     value,
       userId:    userId,
       // title:     title || "Undefined title",
@@ -11,7 +11,7 @@ export default {
     };
   },
   fields: {
-    createdAt: { validate_bolt_type: 'ServerTimestamp' },
+    date:      { validate_bolt_type: 'Timestamp' },
     userId:    { validate_bolt_type: 'UserID' },
     value:     { validate_bolt_type: 'Number' },
     // title:     { validate_bolt_type: 'String', required: true },

@@ -4,6 +4,7 @@ import logModelDefinition from './log';
 import groupModelDefinition from './group';
 import groupMemberModelDefinition from './group-member';
 import userModelDefinition from './user';
+import userPublicModelDefinition from './user-public';
 
 export const group = new heliosrx.GenericStore(
   '/groups/*',
@@ -12,7 +13,9 @@ export const group = new heliosrx.GenericStore(
 
 export const groupMember = new heliosrx.GenericStore(
   '/groups/{groupId}/members/*',
-  groupMemberModelDefinition
+  groupMemberModelDefinition,
+  // { uidMethod: UIDMethod.MY_USER_ID }
+  // { key: UIDMethod.MEMBER_ID }
 );
 
 export const log = new heliosrx.GenericStore(
@@ -21,10 +24,17 @@ export const log = new heliosrx.GenericStore(
 );
 
 export const user = new heliosrx.GenericStore(
-  '/users/*',
+  '/users_private/*',
   userModelDefinition,
   { uidMethod: UIDMethod.MY_USER_ID }
 );
+
+export const userPublic = new heliosrx.GenericStore(
+  '/users_public/*',
+  userPublicModelDefinition,
+  { uidMethod: UIDMethod.MY_USER_ID }
+);
+
 
 /*
 PWA
