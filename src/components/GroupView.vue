@@ -1,7 +1,18 @@
 <template>
-  <div v-if="group.$ready && logs.$readyAll">
-		<h1>{{group.title}}</h1>
-		<div class="log-list">
+  <div v-if="group.$ready">
+    <!--  && logs.$readyAll" -->
+
+    <h1>{{group.title}}</h1>
+    <router-link to="/group/{groupId}/edit">edit</router-link>
+
+    <ChallengeTable
+      :group-id="groupId"
+      :logs-all="logsAll"
+      :users="members"
+      @member-add="onAddNewMember" />
+
+		<!--
+    <div class="log-list">
 			<ul>
 				<li v-for="log in logs.items" :key="log.$key">
 					[User:{{log.userId}}]
@@ -15,7 +26,11 @@
 			<input type="number" v-model="value" @keyup.enter="addItem" />
 			<button @click="addItem">Add Item</button>
 		</div>
+    -->
+    <!-- <pre>logsByUser: {{logsByUser}}</pre> -->
+    <!-- <pre>members: {{members}}</pre> -->
 	</div>
+  <!--
 	<div v-else class="loading">
 		Loading...
 		<i class="icon ion-md-refresh ion-spin" />
@@ -24,24 +39,60 @@
 		<pre>logs.$readyAll: {{logs.$readyAll}}</pre>
 		<pre>group:          {{group}}</pre>
 	</div>
+  -->
 </template>
 
 <script>
+import ChallengeTable from "@/components/ChallengeTable.vue"
+
 export default {
+  components: {
+    ChallengeTable,
+  },
   props: {
     groupId: {
       type: String,
       required: true,
     }
   },
-  data() {
-    return {
-      value: 1,
-    };
-  },
+  // data() {
+  //   return {
+  //     value: 1,
+  //   };
+  // },
   created() {
   },
   computed: {
+    members() {
+      let members = this.$models
+        .groupMember
+        .with({ groupId: this.groupId })
+        .subscribeList()
+        .itemsAsArray()
+
+      // this.$models.randomid = 232144564654
+
+      members.forEach(member => {
+        member.public = this.$models.userPublic.subscribeNode( member.$id );
+        // this._helios_subscriptions.push( ... )
+      })
+
+      return members
+
+      // return [
+      //   { userId: 'afNcxkBmlXbozP2aSeITiD5e4AJ2', username: "A", picture: 'https://randomuser.me/api/portraits/women/21.jpg' },
+      //   { userId: 'afNcxkBmlXbozP2aSeITiD5e4AJ2', username: "B", picture: 'https://randomuser.me/api/portraits/men/84.jpg' },
+      //   { userId: 'afNcxkBmlXbozP2aSeITiD5e4AJ2', username: "C", picture: 'https://randomuser.me/api/portraits/women/22.jpg' },
+      // ];
+    },
+    logsAll() {
+      return this.logs.itemsAsArray();
+      // return {
+      //   'A0': this.logs.itemsAsArray(),
+      //   'B0': this.logs.itemsAsArray(),
+      //   'C0': this.logs.itemsAsArray(),
+      // };
+    },
     group() {
 			return this.$models.group.subscribeNode( this.groupId );
     },
@@ -68,6 +119,12 @@ export default {
     deleteItem( log ) {
       // log.remove();
       this.$models.log.with({ groupId: this.groupId }).remove( log.$id );
+    },
+    onAddNewMember() {
+      let userId = prompt();
+      if ( userId ) {
+         this.$models.groupMember.with({ groupId: this.groupId  }).add({}, userId);
+      }
     },
     // checkTask( log ) {
     //   log.update({ isDone: !log.isDone })

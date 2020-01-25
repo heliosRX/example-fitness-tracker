@@ -2,7 +2,7 @@
   <div class="group-view">
 		<group-edit v-if="groupId === 'new'" :is-new="true" />
 		<group-view v-else :group-id="groupId" />
-		<pre>groupId: {{groupId}}</pre>
+		<!-- <pre>groupId: {{groupId}}</pre> -->
   </div>
 </template>
 

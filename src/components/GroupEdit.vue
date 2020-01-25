@@ -45,11 +45,23 @@ export default {
   }),
 	created() {
 		this.group = this.$models.group.new_from_template();
+    // this.group = this.$models.group.subscribeNode( id )
 	},
   methods: {
 		onSave() {
+      let userId = this.$models.user.defaultUserId;
+      this.group.members = {
+        [userId]: { role: 'admin' }
+      };
 			this.group.write().then( groupId => {
-				this.$router.push( `/group/${groupId}` )
+        // user zur gruppe hinzufügen
+        /* this.$models
+          .groupMember
+          .with({ groupId })
+          .add({}, this.$models.user.defaultUserId).then(() => {
+          });
+        */
+        this.$router.push( `/group/${groupId}` )
 			});
 		}
   }
