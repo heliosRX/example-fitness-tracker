@@ -34,7 +34,7 @@
         "$other": {
           ".validate": "false"
         },
-        ".write": "((data.val() == null || ((data.val() != null && newData.val() != null) && (root.child('groups').child($groupId).child('members').child(auth.uid).child('role').val() == 'member' || root.child('groups').child($groupId).child('members').child(auth.uid).child('role').val() == 'admin'))) || ((data.val() != null && newData.val() == null) && root.child('groups').child($groupId).child('members').child(auth.uid).child('role').val() == 'admin'))",
+        ".write": "(((data.val() == null && newData.child('members').child(auth.uid).val() != null) || ((data.val() != null && newData.val() != null) && (root.child('groups').child($groupId).child('members').child(auth.uid).child('role').val() == 'member' || root.child('groups').child($groupId).child('members').child(auth.uid).child('role').val() == 'admin'))) || ((data.val() != null && newData.val() == null) && root.child('groups').child($groupId).child('members').child(auth.uid).child('role').val() == 'admin'))",
         ".read": "(root.child('groups').child($groupId).child('members').child(auth.uid).child('role').val() == 'member' || root.child('groups').child($groupId).child('members').child(auth.uid).child('role').val() == 'admin')",
         "logs": {
           "$logId": {

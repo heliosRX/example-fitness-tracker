@@ -181,8 +181,8 @@ path /groups/{groupId} is Group {
   read() { isMeGroupMember( groupId ) }
   // write = update + delete + create
 
-  /* create() { true && this.members[ auth.uid ] != null } */
-  create() { true }
+  create() { this.members[ auth.uid ] != null }
+  /* create() { true } */
   update() { isMeGroupMember( groupId ) }
   delete() { isMeGroupAdmin( groupId ) }
 }
