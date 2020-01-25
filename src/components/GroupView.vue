@@ -3,7 +3,7 @@
     <!--  && logs.$readyAll" -->
 
     <h1>{{group.title}}</h1>
-    <router-link to="/group/{groupId}/edit">edit</router-link>
+    <router-link :to="`/group/${groupId}/edit`">edit</router-link>
 
     <ChallengeTable
       :group-id="groupId"
@@ -123,7 +123,7 @@ export default {
     onAddNewMember() {
       let userId = prompt();
       if ( userId ) {
-         this.$models.groupMember.with({ groupId: this.groupId  }).add({}, userId);
+        this.$models.groupMember.with({ groupId: this.groupId  }).add({}, userId);
       }
     },
     // checkTask( log ) {

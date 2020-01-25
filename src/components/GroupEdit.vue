@@ -50,6 +50,9 @@ export default {
   methods: {
 		onSave() {
       let userId = this.$models.user.defaultUserId;
+      if ( !userId ) {
+        alert("invalid user id")
+      }
       this.group.members = {
         [userId]: { role: 'admin' }
       };
