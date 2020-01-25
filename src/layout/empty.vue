@@ -2,6 +2,9 @@
   <div class="default">
     <header class="Header">
        <section class="row">
+        <div class="column column-0" style="flex: 0 0 40px; padding: 0">
+          <img src="@/assets/logo.svg" height="32px" />
+        </div>
         <div class="column column-0">
           <div class="Logo Logo--full" aria-label="Challenge App">
             <router-link class="Link" to="/">
