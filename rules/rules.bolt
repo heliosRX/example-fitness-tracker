@@ -1,26 +1,63 @@
 // file: db/rules/rules.bolt
 
+function isGroupMember(groupId,userId) {
+  prior(root.groups[groupId].members[userId].role) == 'member'
+}
+
+function isGroupAdmin(groupId,userId) {
+  prior(root.groups[groupId].members[userId].role) == 'admin'
+}
+
+function isMeGroupAdmin(groupId) {
+  isGroupAdmin( groupId, auth.uid )
+}
+
+function isMeGroupMember(groupId) {
+  isGroupMember( groupId, auth.uid ) || isGroupAdmin( groupId, auth.uid )
+}
+
+// ----------------------------------------------------------------------------
+
 path /groups {
+  /* read() {
+    auth.uid != null &&
+    query.orderByChild == 'owner' &&
+    query.equalTo == auth.uid
+  } */
   read() { true }
-  write() { true }
+  /* write() { true } */
 }
 
 path /groups/{groupId} is Group {
-  read() { true }
-  write() { true }
+  read() { isMeGroupMember( groupId ) }
+  // write = update + delete + create
+
+  /* create() { true && this.members[ auth.uid ] != null } */
+  create() { true }
+  update() { isMeGroupMember( groupId ) }
+  delete() { isMeGroupAdmin( groupId ) }
 }
 
-path /groups/{groupId}/members/{memberId} is GroupMember {
+/* path /groups/{groupId}/members/{memberId} is GroupMember {
   read() { true }
   write() { true }
-}
+} */
 
 path /groups/{groupId}/logs/{logId} is Log {
-  read() { true }
-  write() { true }
+  /* read() { true }
+  write() { true } */
 }
 
-path /users/{userId} is User {
-  read() { true }
-  write() { true }
+path /users_private/{userId} is User {
+  read() { isUser( userId ) }
+  write() { isUser( userId ) }
+}
+
+path /users_public {
+  read() { isSignedIn() }
+}
+
+path /users_public/{userId} is UserPublic {
+  read() { isSignedIn() }
+  write() { isUser( userId ) }
 }

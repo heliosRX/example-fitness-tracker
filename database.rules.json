@@ -2,7 +2,6 @@
   "rules": {
     "groups": {
       ".read": "true",
-      ".write": "true",
       "$groupId": {
         ".validate": "newData.hasChildren(['title'])",
         "title": {
@@ -20,28 +19,27 @@
         "description": {
           ".validate": "newData.isString()"
         },
-        "$other": {
-          ".validate": "false"
-        },
-        ".read": "true",
-        ".write": "true",
         "members": {
-          "$memberId": {
+          "$key1": {
             ".validate": "newData.hasChildren()",
             "role": {
               ".validate": "newData.isString()"
             },
             "$other": {
               ".validate": "false"
-            },
-            ".read": "true",
-            ".write": "true"
-          }
+            }
+          },
+          ".validate": "newData.hasChildren()"
         },
+        "$other": {
+          ".validate": "false"
+        },
+        ".write": "((data.val() == null || ((data.val() != null && newData.val() != null) && (root.child('groups').child($groupId).child('members').child(auth.uid).child('role').val() == 'member' || root.child('groups').child($groupId).child('members').child(auth.uid).child('role').val() == 'admin'))) || ((data.val() != null && newData.val() == null) && root.child('groups').child($groupId).child('members').child(auth.uid).child('role').val() == 'admin'))",
+        ".read": "(root.child('groups').child($groupId).child('members').child(auth.uid).child('role').val() == 'member' || root.child('groups').child($groupId).child('members').child(auth.uid).child('role').val() == 'admin')",
         "logs": {
           "$logId": {
             ".validate": "newData.hasChildren()",
-            "createdAt": {
+            "date": {
               ".validate": "newData.isNumber()"
             },
             "userId": {
@@ -52,14 +50,12 @@
             },
             "$other": {
               ".validate": "false"
-            },
-            ".read": "true",
-            ".write": "true"
+            }
           }
         }
       }
     },
-    "users": {
+    "users_private": {
       "$userId": {
         ".validate": "newData.hasChildren(['username'])",
         "username": {
@@ -71,8 +67,25 @@
         "$other": {
           ".validate": "false"
         },
-        ".read": "true",
-        ".write": "true"
+        ".read": "(auth != null && auth.uid == $userId)",
+        ".write": "(auth != null && auth.uid == $userId)"
+      }
+    },
+    "users_public": {
+      ".read": "auth != null",
+      "$userId": {
+        ".validate": "newData.hasChildren(['username'])",
+        "username": {
+          ".validate": "newData.isString()"
+        },
+        "picture": {
+          ".validate": "newData.isString()"
+        },
+        "$other": {
+          ".validate": "false"
+        },
+        ".read": "auth != null",
+        ".write": "(auth != null && auth.uid == $userId)"
       }
     }
   }

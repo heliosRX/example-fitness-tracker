@@ -87,13 +87,13 @@ function isUser(uid) { auth != null && auth.uid == uid }
 function isSignedIn() { auth != null }
 
 // Check if user has custom claim 'admin' (not to be confused with 'admin sdk' access)
-function isHeliosAdmin() { auth.token.admin === true }
+function isAdmin() { auth.token.admin === true }
 
 // Check if user has custom claim 'admin'
-function isHeliosDeveloper() { auth.token.developer === true || isHeliosAdmin() }
+function isDeveloper() { auth.token.developer === true || isAdmin() }
 
 // Check if user has custom claim 'support'
-function isHeliosSupport() { auth.token.support === true || isHeliosAdmin() || isHeliosDeveloper() }
+function isSupport() { auth.token.support === true || isAdmin() || isDeveloper() }
 
 // Check if user has verified email address
 function emailVerified() { auth.token.email_verified === true }
@@ -108,6 +108,7 @@ type Group {
 	matchRegex: String | Null
 	createdAt: ServerTimestamp | Null
 	description: String | Null
+	members: GroupMember[] | Null
 }
 
 
@@ -121,7 +122,7 @@ type GroupMember {
 // SOURCE: ../../src/models//log/schema.bolt
 
 type Log {
-	createdAt: ServerTimestamp | Null
+	date: Timestamp | Null
 	userId: UserID | Null
 	value: Number | Null
 }
@@ -135,34 +136,79 @@ type User {
 }
 
 
+// SOURCE: ../../src/models//userPublic/schema.bolt
+
+type UserPublic {
+	username: String
+	picture: String | Null
+}
+
+
 
 
 // SOURCE: /Users/twe/Projects/heliosrx-example-fitness-tracker/rules/rules.bolt
 // file: db/rules/rules.bolt
 
+function isGroupMember(groupId,userId) {
+  prior(root.groups[groupId].members[userId].role) == 'member'
+}
+
+function isGroupAdmin(groupId,userId) {
+  prior(root.groups[groupId].members[userId].role) == 'admin'
+}
+
+function isMeGroupAdmin(groupId) {
+  isGroupAdmin( groupId, auth.uid )
+}
+
+function isMeGroupMember(groupId) {
+  isGroupMember( groupId, auth.uid ) || isGroupAdmin( groupId, auth.uid )
+}
+
+// ----------------------------------------------------------------------------
+
 path /groups {
+  /* read() {
+    auth.uid != null &&
+    query.orderByChild == 'owner' &&
+    query.equalTo == auth.uid
+  } */
   read() { true }
-  write() { true }
+  /* write() { true } */
 }
 
 path /groups/{groupId} is Group {
-  read() { true }
-  write() { true }
+  read() { isMeGroupMember( groupId ) }
+  // write = update + delete + create
+
+  /* create() { true && this.members[ auth.uid ] != null } */
+  create() { true }
+  update() { isMeGroupMember( groupId ) }
+  delete() { isMeGroupAdmin( groupId ) }
 }
 
-path /groups/{groupId}/members/{memberId} is GroupMember {
+/* path /groups/{groupId}/members/{memberId} is GroupMember {
   read() { true }
   write() { true }
-}
+} */
 
 path /groups/{groupId}/logs/{logId} is Log {
-  read() { true }
-  write() { true }
+  /* read() { true }
+  write() { true } */
 }
 
-path /users/{userId} is User {
-  read() { true }
-  write() { true }
+path /users_private/{userId} is User {
+  read() { isUser( userId ) }
+  write() { isUser( userId ) }
+}
+
+path /users_public {
+  read() { isSignedIn() }
+}
+
+path /users_public/{userId} is UserPublic {
+  read() { isSignedIn() }
+  write() { isUser( userId ) }
 }
 
 
