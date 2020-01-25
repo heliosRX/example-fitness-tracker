@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Profile from '../views/Profile.vue'
 import Group from '../views/Group.vue'
 import About from '../views/About.vue'
+import Users from '../views/Users.vue'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,11 @@ const routes = [
     path: '/group/:groupId',
     name: 'group',
 		component: Group,
+  },
+  {
+    path: '/users/',
+    name: 'users',
+		component: Users,
   },
 	{
     path: '/about/',
