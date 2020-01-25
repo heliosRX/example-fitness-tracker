@@ -16,6 +16,9 @@
         <div class="column column-0">
           <nav class="Navigation">
             <ul class="List">
+              <li class="Navigation__item">
+                <router-link class="Link" to="/users">Users</router-link>
+              </li>
 							<!--
               <li class="Navigation__item">
                 <router-link class="Link" to="/">Home</router-link>

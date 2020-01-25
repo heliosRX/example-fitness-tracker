@@ -6,6 +6,7 @@
 		<pre>{{userPromise}}</pre>
 		<pre>{{dbUser}}</pre>
     <pre>{{$models.user.schema_all_fields}}</pre>
+    <input placeholder="Username" v-model="username" />
 		<button @click="onCreateAccount">create my account</button>
   </div>
 </template>
@@ -19,6 +20,7 @@ import { auth_current_user } from '@/api/auth'
 export default {
   data() {
     return {
+      username: "Unknown",
       user: null,
     }
   },
@@ -45,7 +47,12 @@ export default {
 	methods: {
 		onCreateAccount() {
 			this.$models.user.update( this.$models.user.defaultUserId, {
-				username: "test1",
+				username: this.username,
+			});
+
+      this.$models.userPublic.update( this.$models.user.defaultUserId, {
+				username: this.username,
+        picture: `https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 100)}.jpg`
 			});
 		},
   }
