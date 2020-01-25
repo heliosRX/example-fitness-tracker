@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.3",
+    "dayjs": "^1.8.19",
     "eslint-plugin-vue-libs": "^4.0.0",
     "firebase": "^7.6.2",
     "heliosrx": "file:../heliosrx",
