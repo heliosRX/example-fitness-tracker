@@ -64,3 +64,25 @@ textarea {
   height: 64px;
   border-radius: 100%;
 }
+
+/* Custom color */
+.button-danger {
+  background-color: #d84c36;
+  border-color: #d84c36;
+}
+.button-danger.button-clear,
+.button-danger.button-outline {
+  background-color: transparent;
+  color: #d84c36;
+}
+.button-danger.button-clear {
+  border-color: transparent;
+}
+
+/* Custom size */
+.button-large {
+  font-size: 1.4rem;
+  height: 4.5rem;
+  line-height: 4.5rem;
+  padding: 0 2rem;
+}
