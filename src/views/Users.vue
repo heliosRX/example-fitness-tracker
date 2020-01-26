@@ -15,8 +15,8 @@ export default {
   computed: {
     users() {
       return this.$models.userPublic.subscribeList().itemsAsArray();
-    }
-  }
+    },
+  },
 }
 </script>
 

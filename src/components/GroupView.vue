@@ -68,16 +68,16 @@ export default {
         .groupMember
         .with({ groupId: this.groupId })
         .subscribeList()
-        .itemsAsArray()
+        .itemsAsArray();
 
       // this.$models.randomid = 232144564654
 
       members.forEach(member => {
         member.public = this.$models.userPublic.subscribeNode( member.$id );
         // this._helios_subscriptions.push( ... )
-      })
+      });
 
-      return members
+      return members;
 
       // return [
       //   { userId: 'afNcxkBmlXbozP2aSeITiD5e4AJ2', username: "A", picture: 'https://randomuser.me/api/portraits/women/21.jpg' },
@@ -112,7 +112,7 @@ export default {
     addItem() {
       this.$models.log.with({ groupId: this.groupId }).add({
         userId: this.$models.user.defaultUserId,
-        value: parseFloat( this.value )
+        value: parseFloat( this.value ),
       });
       this.value = "";
     },

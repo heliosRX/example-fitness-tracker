@@ -27,7 +27,7 @@ export default {
   mounted() {
     auth_current_user().then(user => {
       this.user = user;
-    })
+    });
   },
   computed: {
 		dbUser() {
@@ -52,7 +52,7 @@ export default {
 
       this.$models.userPublic.update( this.$models.user.defaultUserId, {
 				username: this.username,
-        picture: `https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 100)}.jpg`
+        picture: `https://randomuser.me/api/portraits/men/${Math.round(Math.random() * 100)}.jpg`,
 			});
 		},
   }

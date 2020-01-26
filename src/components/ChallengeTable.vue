@@ -76,10 +76,10 @@ export default {
       const end_date = dayjs('2020-01-30');
       let day = start_date;
       while ( day < end_date ) {
-        datelist.push( day )
-        day = day.add(1, 'day')
+        datelist.push( day );
+        day = day.add(1, 'day');
       }
-      return datelist
+      return datelist;
     },
     logTable() { // O(n^3)
       let table = {};
@@ -87,8 +87,8 @@ export default {
       // this.users.forEach(user => { })
       this.dateRange.forEach(date => {
         // table[ date.format('YYYY-MM-DD') ] = {};
-        Vue.set( table, date.format('YYYY-MM-DD'), {} )
-      })
+        Vue.set( table, date.format('YYYY-MM-DD'), {} );
+      });
 
 
       this.logsAll.forEach(log => {
@@ -96,10 +96,10 @@ export default {
         // date.diff(dayjs(log.date), 'day') === 0
 
         //TODO: handle case, when log item is out of range
-        let date = dayjs(log.date).format('YYYY-MM-DD')
-        table[ date ] = table[ date ] || {}
+        let date = dayjs(log.date).format('YYYY-MM-DD');
+        table[ date ] = table[ date ] || {};
         // table[ date ][ log.userId ] = log.value;
-        Vue.set( table[ date ], log.userId, log.value )
+        Vue.set( table[ date ], log.userId, log.value );
       });
 
       // this.dateRange.forEach(date => {
@@ -132,16 +132,16 @@ export default {
       return item[user.value];
     },
     onAddNewMember() {
-      this.$emit('member-add')
+      this.$emit('member-add');
     },
     onAddEntry( index, userId ) {
-      console.log("onAddEntry", index, userId )
+      console.log("onAddEntry", index, userId );
       let value = prompt('Please provide value:');
       this.$models.log.with({ groupId: this.groupId }).add({
         userId:    userId,
         date:      dayjs( index ).unix(),
         value:     parseInt( value ),
-      })
+      });
     }
   },
   filters: {

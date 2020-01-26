@@ -1,5 +1,5 @@
 // import firebase from "@firebase/app";
-import { auth } from '@/firebase'
+import { auth } from '@/firebase';
 import { auth as firebaseAuth } from "firebase/app";
 
 // ----------------------------------------------------------------------------
@@ -9,7 +9,7 @@ export async function auth_signup({ userEmail, userPassword, userName }) {
     .then((credential) => {
       auth_update_display_name({ displayName: userName }) // async
       return credential
-    })
+    });
 }
 
 // ----------------------------------------------------------------------------
@@ -23,7 +23,7 @@ export async function auth_current_user() {
         userLoaded = true;
         unsubscribe();
         resolve(user);
-     }, reject)
+     }, reject);
   });
 }
 
@@ -31,7 +31,7 @@ export async function auth_current_user() {
 /* Return true if user is logged in, false if user is not logged in and 'null'
    if user authentication is still in progress */
 export function auth_user_is_logged_in() {
-  return userLoaded ? !!auth.currentUser : null
+  return userLoaded ? !!auth.currentUser : null;
 }
 
 // ----------------------------------------------------------------------------
@@ -40,7 +40,7 @@ export async function auth_login_with_provider({ providerName, rememberMe }) {
 
   // if user is already logged in return
   if ( auth.currentUser ) {
-    return
+    return;
   }
 
   let provider = null;
@@ -63,7 +63,7 @@ export async function auth_login_with_provider({ providerName, rememberMe }) {
   }
   let persistenceSetting = rememberMe
     ? firebaseAuth.Auth.Persistence.LOCAL
-    : firebaseAuth.Auth.Persistence.SESSION
+    : firebaseAuth.Auth.Persistence.SESSION;
 
   return auth
     .setPersistence(persistenceSetting)
@@ -87,11 +87,11 @@ export async function auth_login_with_provider({ providerName, rememberMe }) {
 export async function auth_login_with_email_and_password({
   userEmail,
   userPassword,
-  rememberMe
+  rememberMe,
 }) {
 
   if ( auth.currentUser ) {
-    return
+    return;
   }
 
   function handleError(error) {
@@ -112,7 +112,7 @@ export async function auth_login_with_email_and_password({
 
       let persistenceSetting = rememberMe
         ? firebaseAuth.Auth.Persistence.LOCAL
-        : firebaseAuth.Auth.Persistence.SESSION
+        : firebaseAuth.Auth.Persistence.SESSION;
 
       return await auth
         .setPersistence(persistenceSetting)

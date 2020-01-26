@@ -1,4 +1,4 @@
-import { moment } from "heliosrx"
+import { moment } from "heliosrx";
 
 export default {
   create({ title }, { unit }) {

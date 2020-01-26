@@ -65,17 +65,17 @@ export default {
 					url: '/group/' + item.$id,
 					name: item.title,
 				}
-			})
+			});
 		}
 	},
   methods: {
 		onLogout() {
 			auth_logout().then(() => {
-				this.$router.push( "/login" )
+				this.$router.push( "/login" );
 			});
 		},
 		onAddGroup() {
-			this.$router.push( "/group/new" )
+			this.$router.push( "/group/new" );
 		}
   }
 }

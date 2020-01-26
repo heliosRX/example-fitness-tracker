@@ -11,12 +11,12 @@ export default {
   name: 'home',
   data() {
     return {
-    }
+    };
   },
   mounted() {
   },
   components: {
-  }
+  },
 }
 </script>
 

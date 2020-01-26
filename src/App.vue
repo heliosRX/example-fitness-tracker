@@ -21,7 +21,7 @@ export default {
     resourceLoader.afterAppStartsLoading();
   },
   mounted() {
-    resourceLoader.afterAppMounted()
+    resourceLoader.afterAppMounted();
   },
   watch: {
     '$ready_auth' (ready) {
@@ -35,14 +35,14 @@ export default {
     '$ready_user' (ready) {
       // console.log("user is ready", ready)
       if ( ready ) {
-        resourceLoader.afterUserReady(this.userData, this.$models.user.defaultUserId)
+        resourceLoader.afterUserReady(this.userData, this.$models.user.defaultUserId);
       }
     },
     'userReadonly.status': { // TODO: move to resource loader?
       handler( newUserReadonlyStatus ) {
         if ( newUserReadonlyStatus === null ) {
           // We're not logged in yet
-          return
+          return;
         }
 
         if ( newUserReadonlyStatus === undefined ) {
@@ -53,17 +53,17 @@ export default {
           //       which will happen!
 
           // console.log("[load] User attached, but still waiting for user account")
-          return
+          return;
         }
 
         // INFO: Status will be 'loading' before any data is received
         if ( newUserReadonlyStatus === 'loading' ) {
-          return
+          return;
         }
 
         if ( newUserReadonlyStatus === 'init' ) {
           // resourceLoader.attachUser() // Second chance...
-          resourceLoader.afterUserInitialized( this.userReadonly )
+          resourceLoader.afterUserInitialized( this.userReadonly );
         }
 
         if ( newUserReadonlyStatus === 'init' || newUserReadonlyStatus === 'creating' ) {
@@ -86,8 +86,8 @@ export default {
           /* User was deleted on server side */
           // console.log("[load] **** BOOM - USER TERMINATED ****")
           auth_logout().then(() => {
-            this.$router.push('/login')
-          })
+            this.$router.push('/login');
+          });
         }
       },
     },
@@ -99,12 +99,12 @@ export default {
 
     userReadonly() {
       if ( !this.loggedIn ) {
-        return { status: null }
+        return { status: null };
       }
       if ( this.defaultUserId && this.$ready_user ) {
-        return this.$models.userReadonly.subscribeNode( this.defaultUserId )
+        return this.$models.userReadonly.subscribeNode( this.defaultUserId );
       }
-      return { status: 'loading' }
+      return { status: 'loading' };
     },
 
     resourcesReady() {

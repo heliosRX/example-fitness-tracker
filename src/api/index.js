@@ -1,7 +1,7 @@
-import * as userFunctions from './user.js'
-import * as readyFunctions from './ready.js'
+import * as userFunctions from './user.js';
+import * as readyFunctions from './ready.js';
 
-let apiFunctionList = {}
+let apiFunctionList = {};
 
 // if ( process.env.NODE_ENV === "CLI" ) {
 //   Object.assign( apiFunctionList, adminFunctions );

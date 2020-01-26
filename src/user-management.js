@@ -1,5 +1,5 @@
-import resourceLoader from '@/resource-loader'
-import { rtdb, auth } from '@/firebase'
+import resourceLoader from '@/resource-loader';
+import { rtdb, auth } from '@/firebase';
 
 // INFO: /.info/connected is a boolean value which is not synchronized between
 //       Realtime Database clients because the value is dependent on the state

@@ -1,4 +1,4 @@
-import heliosrx, { UIDMethod } from 'heliosrx'
+import heliosrx, { UIDMethod } from 'heliosrx';
 
 import logModelDefinition from './log';
 import groupModelDefinition from './group';

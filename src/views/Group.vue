@@ -22,7 +22,7 @@ export default {
 			return this.$route.params.groupId;
 		}
 	},
-  methods: {}
+  methods: {},
 }
 </script>
 

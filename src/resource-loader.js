@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 
-import firebase from '@firebase/app'
+import firebase from '@firebase/app';
 // import store from "@/store"
-import $models from "@/models"
+import $models from "@/models";
 // import { GenericStore, resetGenericStores } from 'heliosrx'
-import { resetGenericStores, GenericStore } from 'heliosrx'
-import { rem_ready, set_ready } from '@/api/ready'
-import { getRegistry } from 'heliosrx'
+import { resetGenericStores, GenericStore } from 'heliosrx';
+import { rem_ready, set_ready } from '@/api/ready';
+import { getRegistry } from 'heliosrx';
 // import { UserFeatureStore } from '@/features.js';
 
 const DEFAULT_ROUTER_AFTER_LOGIN = '/';
@@ -24,7 +24,7 @@ let router = {
     console.warn("No router available, but resource manager wants to change route to", route );
     this.lastRouteRedirect = route;
   }
-}
+};
 
 const ResourceLoader = {
 
@@ -33,8 +33,8 @@ const ResourceLoader = {
 
   // ---------------------------------------------------------------------------
   connectRouter( vue_router ) {
-    var lastRouteRedirect = router.lastRouteRedirect
-    log1("Got real router => lastRouteRedirect", lastRouteRedirect)
+    const lastRouteRedirect = router.lastRouteRedirect;
+    log1("Got real router => lastRouteRedirect", lastRouteRedirect);
 
     /* After approx 500 ms the router is loaded, so replace fake router with
        real router and redirect to last redirect route passed to the fake router. */
@@ -104,12 +104,12 @@ const ResourceLoader = {
     this.attachUser(user.uid); // user/{userid}/private/userdata
 
     // Get display name
-    let displayName = user.displayName || this.displayName || 'New user'
+    const displayName = user.displayName || this.displayName || 'New user';
 
     if ( user.additionalUserInfo && user.additionalUserInfo.isNewUser ) {
       await $models.userStatus.update( $models.userStatus._get_uid(), {
         displayName: displayName,
-      })
+      });
     }
   },
 
@@ -118,7 +118,7 @@ const ResourceLoader = {
 
     // TODO: This also gets called, when user is not signed in at all
 
-    log1("[afterUserSignOut] Logout! Resetting all data.")
+    log1("[afterUserSignOut] Logout! Resetting all data.");
     /* INFO: This will also be called when user is not signed in at all */
 
     // The reason why we store the user status in vuex is that it will
@@ -172,14 +172,14 @@ const ResourceLoader = {
       location.reload();
       // location.replace('/login')
 
-    }, 10)
+    }, 10);
 
   },
 
   // ---------------------------------------------------------------------------
   afterUserNoAuthentication() {
 
-    log1("afterUserNoAuthentication")
+    log1("afterUserNoAuthentication");
 
     // We have to reset the user state! (= initialize!)
     // store.commit("user/LOGOUT", null, { root: true });
@@ -195,7 +195,7 @@ const ResourceLoader = {
     } = {}
   ) {
 
-    log1("afterUserRegistration", { isOAuth, displayNameRegistrationForm })
+    log1("afterUserRegistration", { isOAuth, displayNameRegistrationForm });
 
     /* For email sign up auth_update_display_name() is already calleda by auth_signup.
        For O-Auth sign up firebase takes care of it. */
@@ -213,7 +213,7 @@ const ResourceLoader = {
         displayName: displayNameRegistrationForm || user.displayName,
         isOnline: true,
         lastSeen: firebase.database.ServerValue.TIMESTAMP,
-      })
+      });
     }
   },
 
@@ -223,7 +223,7 @@ const ResourceLoader = {
 
   // ---------------------------------------------------------------------------
   beforeAppStartsLoading() {
-    log1("beforeAppStartsLoading")
+    log1("beforeAppStartsLoading");
 
     this.initializeStores();
 
@@ -231,7 +231,7 @@ const ResourceLoader = {
        when not redirect from O-Auth provider */
     firebase.auth().getRedirectResult().then((result) => {
 
-      log1("beforeAppStartsLoading -> redirectResult", result)
+      log1("beforeAppStartsLoading -> redirectResult", result);
 
       if ( result.user ) {
 
@@ -242,11 +242,11 @@ const ResourceLoader = {
         if ( result.additionalUserInfo.isNewUser ) {
 
           /* We just created a new user via O-Auth sign up */
-          this.afterUserRegistration( result.user, null, { isOAuth: true })
+          this.afterUserRegistration( result.user, null, { isOAuth: true });
 
         } else {
 
-          router.push( router.currentRoute.query.redirect || DEFAULT_ROUTER_AFTER_LOGIN )
+          router.push( router.currentRoute.query.redirect || DEFAULT_ROUTER_AFTER_LOGIN );
         }
       }
     }).catch(err => {
@@ -276,17 +276,17 @@ const ResourceLoader = {
 
   // ---------------------------------------------------------------------------
   afterUserContentCreated( userReadonly ) {
-    log1("afterUserContentCreated", userReadonly)
+    log1("afterUserContentCreated", userReadonly);
 
     // It makes sense to wait a little bit until tasklists finished loading
 
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        log1("afterUserContentCreated --- 1s TRIGGER")
+        log1("afterUserContentCreated --- 1s TRIGGER");
         this.userReadonlyReady( userReadonly );
 
         // NEU !
-        router.push( router.currentRoute.query.redirect || DEFAULT_ROUTER_AFTER_LOGIN )
+        router.push( router.currentRoute.query.redirect || DEFAULT_ROUTER_AFTER_LOGIN );
         resolve();
 
       }, 3000) // HACK / WORKAROUND
@@ -302,7 +302,7 @@ const ResourceLoader = {
   afterUserReady(userData, authUserId) {
 
     // check if main tasklist exists
-    log1('afterUserReady userData', userData, authUserId)
+    log1('afterUserReady userData', userData, authUserId);
 
     if (userData.$ready && !userData.defaultTasklistId) {
       // create default tasklist
@@ -317,7 +317,7 @@ const ResourceLoader = {
 
     GenericStore.defaultUserId = authUserId;
     set_ready('auth')
-    log1("set ready -> auth = true")
+    log1("set ready -> auth = true");
 
     /*
     let userSettings = $models.userSettings.subscribeNode(authUserId)

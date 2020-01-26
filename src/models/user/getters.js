@@ -8,7 +8,7 @@ export default {
     // DO NOT USE !!!
     if ( $models.user.defaultUserId ) {
       // TODO: NOT REACTIVE !?
-      return $models.userSettings.getNode( $models.user.defaultUserId )
+      return $models.userSettings.getNode( $models.user.defaultUserId );
     } else {
       // throw new Error('userData called before user exist') // ...or user logged out
       return null;

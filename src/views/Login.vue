@@ -55,8 +55,8 @@ export default {
         userEmail: "",
         userPassword: "",
         rememberMe: true,
-      }
-    }
+      },
+    };
   },
   methods: {
     onLogin() {
@@ -64,19 +64,19 @@ export default {
         if ( res && res.code ) {
           this.error = res.message;
         } else {
-          this.$router.push('/')
+          this.$router.push('/');
         }
-      })
+      });
     },
     onLoginWithGoogle() {
       auth_login_with_provider({
         providerName: 'google',
-        rememberMe: this.form.rememberMe
+        rememberMe: this.form.rememberMe,
       }).then((res) => {
         if ( res && res.code ) {
           this.error = res.message;
         } else {
-          this.$router.push('/')
+          this.$router.push('/');
         }
       })
     },

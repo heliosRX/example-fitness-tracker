@@ -38,7 +38,7 @@
 <script>
 export default {
 	props: {
-		isNew: {}
+		isNew: {},
 	},
   data: () => ({
 		group: {},
@@ -51,10 +51,10 @@ export default {
 		onSave() {
       let userId = this.$models.user.defaultUserId;
       if ( !userId ) {
-        alert("invalid user id")
+        alert("invalid user id");
       }
       this.group.members = {
-        [userId]: { role: 'admin' }
+        [userId]: { role: 'admin' },
       };
 			this.group.write().then( groupId => {
         // user zur gruppe hinzufügen
@@ -64,7 +64,7 @@ export default {
           .add({}, this.$models.user.defaultUserId).then(() => {
           });
         */
-        this.$router.push( `/group/${groupId}` )
+        this.$router.push( `/group/${groupId}` );
 			});
 		}
   }
