@@ -9,7 +9,7 @@
 ## Project setup
 ```
 yarn install
-npm instal -g firebase-bolt
+npm install -g firebase-bolt
 ```
 
 ### Install & login to firebase
