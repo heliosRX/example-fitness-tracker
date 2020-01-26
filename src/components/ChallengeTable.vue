@@ -2,6 +2,7 @@
   <table class="challenge-table">
     <thead>
       <tr>
+        <th></th>
         <th>
           Date
         </th>
@@ -19,6 +20,8 @@
     </thead>
     <tbody>
       <tr v-for="(row, index) in logTable" :key="getItemKey(row, index)">
+        <td v-if="index === today">X</td>
+        <td v-else></td>
         <td>{{ index|formatDate }}</td>
         <td
           v-for="(user, userIndex) in users"
@@ -42,8 +45,6 @@
 <script>
 import Vue from 'vue'
 import dayjs from 'dayjs'
-
-window.dayjs = dayjs;
 
 export default {
   props: {
@@ -121,6 +122,9 @@ export default {
       });
 
       return currentUser === undefined ? false : currentUser.role === 'admin';
+    },
+    today() {
+      return dayjs().format('YYYY-MM-DD');
     },
   },
   methods: {
