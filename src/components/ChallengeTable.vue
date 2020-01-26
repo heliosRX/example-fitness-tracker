@@ -36,13 +36,12 @@
           v-for="(user, userIndex) in users"
           :key="`row-${getItemKey(row, index)}-${getUserKey(user, userIndex)}`"
           @click.prevent="onAddEntry( index, user.$id )"
+          class="content-cell"
         >
           {{ logTable[ index ][ user.$id ] || '-' }}
           <a class="show-on-hover" href="#" >
-            <span class="fa fa-add" />
-            add
+            <span class="icon ion-md-create" />
           </a>
-          <!-- <input v-model="newEntry" /> -->
           <!-- {{ getItemValue(row, user) }} -->
         </td>
         <td></td>
@@ -114,10 +113,12 @@ export default {
   computed: {
     dateRange() {
       const datelist = [];
-      const start_date = dayjs('2020-01-20');
-      const end_date = dayjs('2020-01-30');
+      // const start_date = dayjs('2020-01-20');
+      // const end_date = dayjs('2020-01-30');
+      const end_date = dayjs();
+      const start_date = end_date.subtract(14, 'days');
       let day = start_date;
-      while ( day < end_date ) {
+      while ( day <= end_date ) {
         datelist.push( day );
         day = day.add(1, 'day');
       }
@@ -247,8 +248,12 @@ export default {
 .challenge-table td .show-on-hover {
   display: none;
 }
-.challenge-table td:hover {
-  background: #ddd !important;
+.challenge-table td.content-cell:hover {
+  /* border: 10px solid red; */
+  box-sizing: border-box;
+  box-shadow: inset 0px 0px 8px rgba(0,0,0,0.25);
+  /* background: #444 !important;
+  color: white; */
   cursor: pointer;
 }
 .challenge-table td:hover .show-on-hover {
