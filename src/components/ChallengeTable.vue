@@ -198,13 +198,14 @@ export default {
       this.$emit('member-add');
     },
     onAddEntry( index, userId ) {
-      console.log("onAddEntry", index, userId );
       let value = prompt('Please provide value:');
-      this.$models.log.with({ groupId: this.groupId }).add({
-        userId:    userId,
-        date:      dayjs( index ).unix(),
-        value:     parseInt( value ),
-      });
+      if ( value !== null ) {
+        this.$models.log.with({ groupId: this.groupId }).add({
+          userId:    userId,
+          date:      dayjs( index ).unix(),
+          value:     parseInt( value ),
+        });
+      }
     },
     isWeekend( index ) {
       let weekday = dayjs( index ).format('d');
