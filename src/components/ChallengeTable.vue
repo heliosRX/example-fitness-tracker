@@ -9,9 +9,10 @@
           v-for="(user, index) in users"
           :key="getUserKey(user, index)"
           style="width: 260px">
-          <!-- <slot name="user" :user="user">{{ getUserText(user) }}</slot> -->
-          <img :src="user.public.picture" class="avatar" />
-          <span>{{ user.public.username }}</span>
+          <div class="flex flex-center">
+            <img :src="user.public.picture" class="avatar" />
+            <span class="ml-1">{{ user.public.username }}</span>
+          </div>
         </th>
         <th>
           <button v-if="isGroupAdmin" class="button-primary mx-auto" @click="onAddNewMember">
@@ -42,9 +43,11 @@
           <a class="show-on-hover" href="#" >
             <span class="icon ion-md-create" />
           </a>
-          <!-- {{ getItemValue(row, user) }} -->
         </td>
         <td></td>
+      </tr>
+      <tr class="table-seperator">
+        <td :colspan="users.length + 2"></td>
       </tr>
       <tr>
         <td class="date-column">
@@ -188,17 +191,8 @@ export default {
     getUserKey(user, index) {
       return (user && user.value) || index;
     },
-    getUserText(user) {
-      return (user && user.text) || '';
-    },
     getItemKey(item, index) {
       return (item && item.value) || index;
-    },
-    getItemValue(item, user) {
-      if (!item || !user || !user.value || !item[user.value]) {
-        return '';
-      }
-      return item[user.value];
     },
     onAddNewMember() {
       this.$emit('member-add');
@@ -216,9 +210,6 @@ export default {
       let weekday = dayjs( index ).format('d');
       return weekday === '0' || weekday === '6';
     },
-    /* isToday( index ) {
-      return dayjs( index ).format('YYYYMMDD') === dayjs().format('YYYYMMDD')
-    }, */
   },
   filters: {
     formatDate( index ) {
@@ -230,43 +221,44 @@ export default {
 
 <style>
 .challenge-table tr.is-weekend td {
-  background: #e5f3dd;
+  color: #409c40;
 }
 .challenge-table tr.is-today td {
   background: #F8CB6F;
 }
 .challenge-table td.date-column {
-  /* border-right: 1px solid grey; */
+  border-right: 1px solid rgba(0,0,0,0.1);
   font-family: monospace;
   font-weight: bold;
   text-align: center;
   padding-left: 1.5rem;
 }
-.challenge-table td {
-  border-right: 0.1rem solid #e1e1e1;
+.challenge-table td, .challenge-table th {
+  border: none;
 }
 .challenge-table td .show-on-hover {
   display: none;
 }
 .challenge-table td.content-cell:hover {
-  /* border: 10px solid red; */
   box-sizing: border-box;
   box-shadow: inset 0px 0px 8px rgba(0,0,0,0.25);
-  /* background: #444 !important;
-  color: white; */
   cursor: pointer;
 }
 .challenge-table td:hover .show-on-hover {
   display: inline;
 }
-.challenge-table td {
-  border-right: 1px solid #fff;
-}
 .challenge-table tr:nth-child(odd) {
-  background-color: #f1f1f1;
+  background-color: #f5f5f5;
 }
 .challenge-table thead > tr > th {
   background-color: #fff;
+}
+table.challenge-table tbody td {
+  /* border: 1px solid #e1e1e1; */
+}
+.challenge-table tr.table-seperator td {
+  background: white;
+  height: 50px;
 }
 
 </style>
