@@ -13,6 +13,7 @@
 					<option value="kg">kg</option>
 					<option value="min">min</option>
 					<option value="m">meter</option>
+          <option value="steps">steps</option>
 				</select>
 
 				<label for="commentField">Description</label>
