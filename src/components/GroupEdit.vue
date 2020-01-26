@@ -28,25 +28,38 @@
 				</div>
 				-->
 
-				<input class="button-primary" type="submit" value="Save" />
+        <input class="button button-primary" type="submit" value="Save" />
+        <input class="button button-outline ml-2" type="submit" value="Cancel" @click.prevent="onCancel">
+        <!-- <button class="button button-outline">Cancel</button> -->
 			</fieldset>
 		</form>
 
-		<pre>{{group}}</pre>
+    <pre>isNew: {{isNew}}</pre>
+    <pre>group: {{group}}</pre>
   </div>
 </template>
 
 <script>
 export default {
 	props: {
-		isNew: {},
+		isNew: {
+      type: Boolean,
+    },
+    groupId: {
+      type: String,
+      default: "",
+    }
 	},
   data: () => ({
 		group: {},
   }),
 	created() {
-		this.group = this.$models.group.new_from_template();
-    // this.group = this.$models.group.subscribeNode( id )
+    if ( this.isNew ) {
+      this.group = this.$models.group.new_from_template();
+    } else {
+      this.group = this.$models.group.subscribeNode( this.groupId );
+    }
+    console.log("group", this.group)
 	},
   methods: {
 		onSave() {
@@ -67,7 +80,14 @@ export default {
         */
         this.$router.push( `/group/${groupId}` );
 			});
-		}
+		},
+    onCancel() {
+      if ( this.groupId ) {
+        this.$router.push( `/group/${this.groupId}` )
+      } else {
+        this.$router.push( '/' )
+      }
+    }
   }
 }
 </script>
