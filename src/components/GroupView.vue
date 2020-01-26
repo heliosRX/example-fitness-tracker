@@ -1,9 +1,16 @@
 <template>
   <div v-if="group.$ready">
-    <!--  && logs.$readyAll" -->
 
-    <h1>{{group.title}}</h1>
-    <router-link :to="`/group/${groupId}/edit`">edit</router-link>
+    <h1>
+      {{group.title}}
+      <router-link :to="`/group/${groupId}/edit`">
+        <i class="icon ion-ios-cog" style="float:right" />
+      </router-link>
+    </h1>
+
+    <p v-if="group.description" class="group-description">
+      {{group.description}}
+    </p>
 
     <ChallengeTable
       :group-id="groupId"
@@ -27,19 +34,18 @@
 			<button @click="addItem">Add Item</button>
 		</div>
     -->
-    <!-- <pre>logsByUser: {{logsByUser}}</pre> -->
-    <!-- <pre>members: {{members}}</pre> -->
+
+    <!-- <pre>logsByUser:     {{logsByUser}}</pre> -->
+    <!-- <pre>members:        {{members}}</pre> -->
+    <!-- <pre>groupId:        {{groupId}}</pre> -->
+    <!-- <pre>group.$ready:   {{group.$ready}}</pre> -->
+    <!-- <pre>logs.$readyAll: {{logs.$readyAll}}</pre> -->
+    <!-- <pre>group:          {{group}}</pre> -->
 	</div>
-  <!--
 	<div v-else class="loading">
 		Loading...
 		<i class="icon ion-md-refresh ion-spin" />
-		<pre>groupId:        {{groupId}}</pre>
-		<pre>group.$ready:   {{group.$ready}}</pre>
-		<pre>logs.$readyAll: {{logs.$readyAll}}</pre>
-		<pre>group:          {{group}}</pre>
 	</div>
-  -->
 </template>
 
 <script>
@@ -134,6 +140,32 @@ export default {
 </script>
 
 <style>
+.group-description {
+  border-radius: 0.25rem;
+  background: #eee;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.loading {
+  text-align: center;
+  font-size: 20pt;
+  min-height: 140px;
+  margin-top: 100px;
+}
+
+.ion-spin {
+  font-size: 20pt;
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(359deg); }
+}
+
+/*
 .log-list {
   margin: 0 2em;
   padding: 2em;
@@ -172,22 +204,5 @@ export default {
 .log-list li:hover {
   background: #eee;
 }
-
-.log-list .loading {
-  text-align: center;
-  font-size: 20pt;
-  min-height: 140px;
-  margin-top: 100px;
-}
-
-.ion-spin {
-  font-size: 20pt;
-  display: inline-block;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(359deg); }
-}
+*/
 </style>
