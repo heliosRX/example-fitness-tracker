@@ -37,6 +37,45 @@
         </td>
         <td></td>
       </tr>
+      <tr>
+        <td></td>
+        <td>
+          Sum
+        </td>
+        <td
+          v-for="(user, userIndex) in users"
+          :key="`sum-${getUserKey(user, userIndex)}`"
+        >
+          {{ sums[ user.$id ] || '0' }}
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          Current Streak
+        </td>
+        <td
+          v-for="(user, userIndex) in users"
+          :key="`current-streak-${getUserKey(user, userIndex)}`"
+        >
+          {{ currentStreaks[ user.$id ] || '0' }}
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          Longest Streak
+        </td>
+        <td
+          v-for="(user, userIndex) in users"
+          :key="`longest-streak-${getUserKey(user, userIndex)}`"
+        >
+          {{ longestStreaks[ user.$id ] || '0' }}
+        </td>
+        <td></td>
+      </tr>
     </tbody>
     <!-- <pre>{{logTable}}</pre> -->
   </table>
@@ -111,6 +150,22 @@ export default {
       //   table[ date.format('YYYY-MM-DD') ] = user_logs;
       // })
       return table;
+    },
+    sums() {
+      const sums = {};
+
+      this.logsAll.forEach((log) => {
+        sums[log.userId] = sums[log.userId] || 0;
+        sums[log.userId] += log.value;
+      });
+
+      return sums;
+    },
+    currentStreaks() {
+      return {};
+    },
+    longestStreaks() {
+      return {};
     },
     hasUsers() {
       return this.users && this.users.length > 0;
