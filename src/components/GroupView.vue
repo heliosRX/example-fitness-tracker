@@ -73,7 +73,7 @@ export default {
       let members = this.$models
         .groupMember
         .with({ groupId: this.groupId })
-        .subscribeList()
+        .getList()
         .itemsAsArray();
 
       // this.$models.randomid = 232144564654
