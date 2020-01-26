@@ -60,7 +60,13 @@ export default {
 		},
 
 		menuList() {
-			return this.groupList.itemsAsArray().map( item => {
+			const userId = this.$models.user.defaultUserId;
+			const relevantGroups = this.groupList.itemsAsArray().filter((group) => {
+				const members = group.members || {};
+				return userId in members;
+			});
+
+			return relevantGroups.map( item => {
 				return {
 					url: '/group/' + item.$id,
 					name: item.title,
