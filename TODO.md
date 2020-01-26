@@ -1,0 +1,22 @@
+# TODO
+
+- [X] Edit groups
+- [ ] Allow to set duration (start/end)
+- [ ] Challenge Options
+- [X] Show description
+- [ ] Only fetch groups where I am member
+- [ ] Security rule for query
+- [ ] Remove people from group
+- [ ] CSS Formating table
+- [ ] Sum/Computed props table
+- [ ] Only allow add for current day
+- [ ] Allow to set profile picture
+- [ ] Allow to change password (change username?)
+- [ ] Create user after sign up
+- [ ] Responsive Layout (mobile)
+- [ ] Set time range automatically
+- [ ] Allow to change time range
+- [X] Show weekday, highlight current day, highlight weekends
+- [ ] Nice input for today
+- [ ] PWA, Notifications
+- [ ] Signup
