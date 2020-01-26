@@ -133,6 +133,8 @@ type Log {
 type User {
 	username: String
 	createdAt: ServerTimestamp | Null
+	phonenumber: String | Null
+	groups: Map<AnyID, String> | Null
 }
 
 
@@ -141,6 +143,7 @@ type User {
 type UserPublic {
 	username: String
 	picture: String | Null
+	about: String | Null
 }
 
 
@@ -185,6 +188,8 @@ path /groups/{groupId} is Group {
   /* create() { true } */
   update() { isMeGroupMember( groupId ) }
   delete() { isMeGroupAdmin( groupId ) }
+
+  /* index() { [ "members" ] } */
 }
 
 /* path /groups/{groupId}/members/{memberId} is GroupMember {

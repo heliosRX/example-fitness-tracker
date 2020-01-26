@@ -36,6 +36,8 @@ path /groups/{groupId} is Group {
   /* create() { true } */
   update() { isMeGroupMember( groupId ) }
   delete() { isMeGroupAdmin( groupId ) }
+
+  /* index() { [ "members" ] } */
 }
 
 /* path /groups/{groupId}/members/{memberId} is GroupMember {

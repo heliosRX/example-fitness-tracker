@@ -64,6 +64,15 @@
         "createdAt": {
           ".validate": "newData.isNumber()"
         },
+        "phonenumber": {
+          ".validate": "newData.isString()"
+        },
+        "groups": {
+          "$key2": {
+            ".validate": "($key2.length >= 20 && newData.isString())"
+          },
+          ".validate": "newData.hasChildren()"
+        },
         "$other": {
           ".validate": "false"
         },
@@ -79,6 +88,9 @@
           ".validate": "newData.isString()"
         },
         "picture": {
+          ".validate": "newData.isString()"
+        },
+        "about": {
           ".validate": "newData.isString()"
         },
         "$other": {
