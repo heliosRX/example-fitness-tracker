@@ -2,11 +2,13 @@
   <table class="challenge-table">
     <thead>
       <tr>
-        <th></th>
-        <th>
+        <th style="width: 200px">
           Date
         </th>
-        <th v-for="(user, index) in users" :key="getUserKey(user, index)">
+        <th
+          v-for="(user, index) in users"
+          :key="getUserKey(user, index)"
+          style="width: 260px">
           <!-- <slot name="user" :user="user">{{ getUserText(user) }}</slot> -->
           <img :src="user.public.picture" class="avatar" />
           <span>{{ user.public.username }}</span>
@@ -19,16 +21,24 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(row, index) in logTable" :key="getItemKey(row, index)">
-        <td v-if="index === today">X</td>
-        <td v-else></td>
-        <td>{{ index|formatDate }}</td>
+      <tr
+        v-for="(row, index) in logTable"
+        :key="getItemKey(row, index)"
+        :class="{
+          'is-today'   : index === todayIndex,
+          'is-weekend' : isWeekend( index ),
+          }">
+        <td class="date-column">
+          <span class="icon ion-md-arrow-forward" v-if="index === todayIndex" />
+          {{ index|formatDate }}
+        </td>
         <td
           v-for="(user, userIndex) in users"
           :key="`row-${getItemKey(row, index)}-${getUserKey(user, userIndex)}`"
+          @click.prevent="onAddEntry( index, user.$id )"
         >
           {{ logTable[ index ][ user.$id ] || '-' }}
-          <a class="show-on-hover" href="#" @click.prevent="onAddEntry( index, user.$id )">
+          <a class="show-on-hover" href="#" >
             <span class="fa fa-add" />
             add
           </a>
@@ -38,8 +48,7 @@
         <td></td>
       </tr>
       <tr>
-        <td></td>
-        <td>
+        <td class="date-column">
           Sum
         </td>
         <td
@@ -51,8 +60,7 @@
         <td></td>
       </tr>
       <tr>
-        <td></td>
-        <td>
+        <td class="date-column">
           Current Streak
         </td>
         <td
@@ -64,8 +72,7 @@
         <td></td>
       </tr>
       <tr>
-        <td></td>
-        <td>
+        <td class="date-column">
           Longest Streak
         </td>
         <td
@@ -104,11 +111,6 @@ export default {
       },
     },
   },
-  // data() {
-  //   return {
-  //     newEntry: 1,
-  //   };
-  // },
   computed: {
     dateRange() {
       const datelist = [];
@@ -121,7 +123,7 @@ export default {
       }
       return datelist;
     },
-    logTable() { // O(n^3)
+    logTable() {
       let table = {};
 
       // this.users.forEach(user => { })
@@ -129,7 +131,6 @@ export default {
         // table[ date.format('YYYY-MM-DD') ] = {};
         Vue.set( table, date.format('YYYY-MM-DD'), {} );
       });
-
 
       this.logsAll.forEach(log => {
         // console.log("X", dayjs(log.date).format())
@@ -178,7 +179,7 @@ export default {
 
       return currentUser === undefined ? false : currentUser.role === 'admin';
     },
-    today() {
+    todayIndex() {
       return dayjs().format('YYYY-MM-DD');
     },
   },
@@ -209,19 +210,46 @@ export default {
         date:      dayjs( index ).unix(),
         value:     parseInt( value ),
       });
-    }
+    },
+    isWeekend( index ) {
+      let weekday = dayjs( index ).format('d');
+      return weekday === '0' || weekday === '6';
+    },
+    /* isToday( index ) {
+      return dayjs( index ).format('YYYYMMDD') === dayjs().format('YYYYMMDD')
+    }, */
   },
   filters: {
     formatDate( index ) {
-      return dayjs( index ).format('DD. MMM YYYY');
-    }
+      return dayjs( index ).format('ddd, DD. MMM YYYY');
+    },
   }
 };
 </script>
 
-<style media="screen">
+<style>
+.challenge-table tr.is-weekend td {
+  background: #e5f3dd;
+}
+.challenge-table tr.is-today td {
+  background: #F8CB6F;
+}
+.challenge-table td.date-column {
+  /* border-right: 1px solid grey; */
+  font-family: monospace;
+  font-weight: bold;
+  text-align: center;
+  padding-left: 1.5rem;
+}
+.challenge-table td {
+  border-right: 0.1rem solid #e1e1e1;
+}
 .challenge-table td .show-on-hover {
   display: none;
+}
+.challenge-table td:hover {
+  background: #ddd !important;
+  cursor: pointer;
 }
 .challenge-table td:hover .show-on-hover {
   display: inline;
@@ -230,7 +258,7 @@ export default {
   border-right: 1px solid #fff;
 }
 .challenge-table tr:nth-child(odd) {
-  background-color: #e1e1e1;
+  background-color: #f1f1f1;
 }
 .challenge-table thead > tr > th {
   background-color: #fff;
