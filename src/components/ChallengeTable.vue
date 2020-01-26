@@ -11,7 +11,7 @@
           <span>{{ user.public.username }}</span>
         </th>
         <th>
-          <button class="button-primary mx-auto" @click="onAddNewMember">
+          <button v-if="isGroupAdmin" class="button-primary mx-auto" @click="onAddNewMember">
             Add new member
           </button>
         </th>
@@ -113,6 +113,14 @@ export default {
     },
     hasUsers() {
       return this.users && this.users.length > 0;
+    },
+    isGroupAdmin() {
+      const userId = this.$models.user.defaultUserId;
+      const currentUser = this.users.find((user) => {
+        return user.$id === userId;
+      });
+
+      return currentUser === undefined ? false : currentUser.role === 'admin';
     },
   },
   methods: {
