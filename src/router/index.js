@@ -32,6 +32,11 @@ const routes = [
 		component: Group,
   },
   {
+    path: '/group/:groupId/edit',
+    name: 'group-edit',
+		component: Group,
+  },
+  {
     path: '/users/',
     name: 'users',
 		component: Users,

@@ -1,8 +1,11 @@
 <template>
   <div class="group-view">
-		<group-edit v-if="groupId === 'new'" :is-new="true" />
+		<group-edit
+      v-if="groupId === 'new' || $route.name === 'group-edit'"
+      :group-id="groupId"
+      :is-new="$route.name !== 'group-edit'" />
 		<group-view v-else :group-id="groupId" />
-		<!-- <pre>groupId: {{groupId}}</pre> -->
+		<!-- <pre>$route.name: {{$route.name}}</pre> -->
   </div>
 </template>
 
