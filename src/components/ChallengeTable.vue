@@ -167,4 +167,14 @@ export default {
 .challenge-table td:hover .show-on-hover {
   display: inline;
 }
+.challenge-table td {
+  border-right: 1px solid #fff;
+}
+.challenge-table tr:nth-child(odd) {
+  background-color: #e1e1e1;
+}
+.challenge-table thead > tr > th {
+  background-color: #fff;
+}
+
 </style>
