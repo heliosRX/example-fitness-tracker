@@ -57,7 +57,7 @@ export default {
     if ( this.isNew ) {
       this.group = this.$models.group.new_from_template();
     } else {
-      this.group = this.$models.group.subscribeNode( this.groupId );
+      this.group = this.$models.group.subscribeNode( this.groupId ).clone();
     }
     console.log("group", this.group)
 	},
@@ -67,9 +67,11 @@ export default {
       if ( !userId ) {
         alert("invalid user id");
       }
-      this.group.members = {
-        [userId]: { role: 'admin' },
-      };
+      if ( this.isNew ) {
+        this.group.members = {
+          [userId]: { role: 'admin' },
+        };
+      }
 			this.group.write().then( groupId => {
         // user zur gruppe hinzufügen
         /* this.$models
