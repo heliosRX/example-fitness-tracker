@@ -57,6 +57,10 @@ export default {
 	computed: {
 		groupList() {
 			return this.$models.group.subscribeList();
+      // return this.$models.group.subscribeQuery({
+      //   key: 'members',
+      //   value: this.$models.user.defaultUserId,
+      // })
 		},
 
 		menuList() {

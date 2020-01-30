@@ -91,6 +91,7 @@ export default {
       this.$watch('dbUserPublic.$ready' , ready => {
         if ( ready ) {
           console.log("ready!")
+          console.log("dbUser", this.dbUser)
         }
       });
     });
@@ -136,6 +137,9 @@ export default {
       //   }
       // })
 
+      // TODO helios: Implement updateNested()
+      // TODO helios: Fix nested schema validation
+      // TODO RECIPE
 
       this.$models.user.update( this.$models.user.defaultUserId, {
         [`groups/${groupId}`]: this.debug.groupName
