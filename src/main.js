@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { createApp } from 'vue';
 import App from './App.vue';
 
 import heliosRX from 'heliosrx';
@@ -34,9 +34,10 @@ loader.connectRouter( router );
 /* ---------------------------- Vue Config ---------------------------------- */
 Vue.config.productionTip = false;
 
-export default new Vue({
-  // db: db,
-  // store: store,
+export const app = createApp();
+app.mount(App, '#app');
+
+/* export default new Vue({
   router,
   render: h => h(App)
-}).$mount('#app');
+}).$mount('#app'); */
