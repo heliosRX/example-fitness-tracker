@@ -27,8 +27,11 @@ module.exports = {
   devServer: {
     watchOptions: {
       ignored: [
-        'node_modules',
-        '**/node_modules/**',
+        string => {
+          return string.includes('node_modules')
+             && !string.includes('heliosrx');
+        },
+        // '**/node_modules/**',
         '/build/.cache',
         '/docs',
         '/.git'
