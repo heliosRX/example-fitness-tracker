@@ -7,8 +7,8 @@ export default {
     };
   },
   fields: {
-    username:  { validate_bolt_type: 'String', required: true },
-    picture:   { validate_bolt_type: 'String' },
-    about:     { validate_bolt_type: 'String' },
+    username:  { type: 'String', required: true },
+    picture:   { type: 'String' },
+    about:     { type: 'String' },
   },
 };

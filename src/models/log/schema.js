@@ -11,10 +11,10 @@ export default {
     };
   },
   fields: {
-    date:      { validate_bolt_type: 'Timestamp' },
-    userId:    { validate_bolt_type: 'UserID' },
-    value:     { validate_bolt_type: 'Number' },
-    // title:     { validate_bolt_type: 'String', required: true },
-    // isDone:    { validate_bolt_type: 'Boolean' },
+    date:      { type: 'Timestamp' },
+    userId:    { type: 'UserID' },
+    value:     { type: 'Number' },
+    // title:     { type: 'String', required: true },
+    // isDone:    { type: 'Boolean' },
   },
 };

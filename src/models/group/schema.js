@@ -11,11 +11,11 @@ export default {
     };
   },
   fields: {
-    title:       { validate_bolt_type: 'String', required: true },
-    unit:        { validate_bolt_type: 'String' },
-		matchRegex:  { validate_bolt_type: 'String' },
-    createdAt:   { validate_bolt_type: 'ServerTimestamp' },
-    description: { validate_bolt_type: 'String' },
-		members:     { validate_bolt_type: 'GroupMember[]' },
+    title:       { type: 'String', required: true },
+    unit:        { type: 'String' },
+		matchRegex:  { type: 'String' },
+    createdAt:   { type: 'ServerTimestamp' },
+    description: { type: 'String' },
+		members:     { type: 'GroupMember[]' },
   },
 };

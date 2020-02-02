@@ -60,8 +60,8 @@
     </div>
 
     <hr />
-    <pre>user.schema: {{$models.user.schema_all_fields}}</pre>
-    <pre>userPublic.schema: {{$models.userPublic.schema_all_fields}}</pre>
+    <pre>user.schema: {{$models.user.schemaAllFields}}</pre>
+    <pre>userPublic.schema: {{$models.userPublic.schemaAllFields}}</pre>
     <pre>dbUser: {{dbUser}}</pre>
 		<pre>dbUserPublic: {{dbUserPublic}}</pre>
     <pre>authUser: {{user}}</pre>

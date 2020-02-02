@@ -5,6 +5,6 @@ export default {
     };
   },
   fields: {
-    role: { validate_bolt_type: 'String' },
+    role: { type: 'String' },
   },
 };

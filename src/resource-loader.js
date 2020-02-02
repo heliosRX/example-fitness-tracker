@@ -127,7 +127,7 @@ const ResourceLoader = {
     // store.commit("user/LOGOUT", null, { root: true });
 
     /* Clear instance cache */
-    $models.userReadonly.reset_global_instance_cache();
+    $models.userReadonly.resetGlobalInstanceCache();
 
     /* Reset user and remove all subscriptions */
     resetGenericStores();

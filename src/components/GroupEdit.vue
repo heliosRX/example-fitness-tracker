@@ -55,7 +55,7 @@ export default {
   }),
 	created() {
     if ( this.isNew ) {
-      this.group = this.$models.group.new_from_template();
+      this.group = this.$models.group.newFromTemplate();
     } else {
       this.group = this.$models.group.subscribeNode( this.groupId ).clone();
     }
