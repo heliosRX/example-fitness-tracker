@@ -5,6 +5,7 @@ import groupModelDefinition from './group';
 import groupMemberModelDefinition from './group-member';
 import userModelDefinition from './user';
 import userPublicModelDefinition from './user-public';
+import exampleModelDefinition from './example';
 
 export const group = new heliosrx.GenericStore(
   '/groups/*',
@@ -35,6 +36,10 @@ export const userPublic = new heliosrx.GenericStore(
   { uidMethod: UIDMethod.MY_USER_ID }
 );
 
+export const example = new heliosrx.GenericStore(
+  '/example/*',
+  exampleModelDefinition,
+);
 
 /*
 PWA
